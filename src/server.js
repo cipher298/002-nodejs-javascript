@@ -1,21 +1,25 @@
 require('dotenv').config();
-const express = require('express'); //commonjs
+const express = require('express'); // commonjs
 const configViewEngine = require('./config/viewEngine');
 const apiRoutes = require('./routes/api');
 const connection = require('./config/database');
 const { getHomepage } = require('./controllers/homeController');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 8888;
 
-//config req.body
+// config cors
+app.use(cors());
+
+// config req.body
 app.use(express.json()); // for json
 app.use(express.urlencoded({ extended: true })); // for form data
 
-//config template engine
+// config template engine
 configViewEngine(app);
 
-//khai báo route
+// khai báo route
 // const webAPI = express.Router();
 // app.use('/', webAPI);
 
@@ -24,7 +28,7 @@ app.use('/', getHomepage);
 
 (async () => {
   try {
-    //using mongoose
+    // using mongoose
     // await connection();
 
     app.listen(port, () => {
