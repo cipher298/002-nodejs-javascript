@@ -37,18 +37,18 @@ const loginService = async (email, password) => {
         };
       } else {
         // create an access token
-        return 'Create an access token';
         const payload = {
           email: user.email,
           name: user.name,
         };
 
-        const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+        const access_token = jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: process.env.JWT_EXPIRE,
         });
 
         return {
-          accessToken,
+          EC: 0,
+          access_token,
           user: {
             email: user.email,
             name: user.name,
