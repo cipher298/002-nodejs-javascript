@@ -4,8 +4,15 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 
-const createUserServices = async (name, email, password) => {
+const createUserService = async (name, email, password) => {
   try {
+    // check user exit
+    const user = await User.findOne({ email });
+    if (user) {
+      console.log(`User "${email}" already exists.`);
+      return null;
+    }
+
     // hash user password
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
@@ -67,7 +74,18 @@ const loginService = async (email, password) => {
   }
 };
 
+const getUserService = async () => {
+  try {
+    let result = await User.find({});
+    return result;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 module.exports = {
-  createUserServices,
+  createUserService,
   loginService,
+  getUserService,
 };
