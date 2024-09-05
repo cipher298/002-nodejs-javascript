@@ -9,7 +9,7 @@ const createUserService = async (name, email, password) => {
     // check user exit
     const user = await User.findOne({ email });
     if (user) {
-      console.log(`User "${email}" already exists.`);
+      notification.warn(`User "${email}" already exists.`);
       return null;
     }
 
@@ -25,7 +25,7 @@ const createUserService = async (name, email, password) => {
     });
     return result;
   } catch (error) {
-    console.log(error);
+    notification.error(error);
     return null;
   }
 };
@@ -69,7 +69,7 @@ const loginService = async (email, password) => {
       };
     }
   } catch (error) {
-    console.log(error);
+    notification.error(error);
     return null;
   }
 };
@@ -79,7 +79,7 @@ const getUserService = async () => {
     let result = await User.find({}).select('-password');
     return result;
   } catch (error) {
-    console.log(error);
+    notification.error(error);
     return null;
   }
 };

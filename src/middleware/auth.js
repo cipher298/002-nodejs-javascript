@@ -18,7 +18,6 @@ const auth = (req, res, next) => {
           email: decoded.email,
           createBy: 'vxt',
         };
-        console.log(decoded);
         next();
       } catch (error) {
         return res.status(401).json({
